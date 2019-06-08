@@ -10,7 +10,7 @@ import User from "./User"
 import ForgotPassword from "./ForgotPassword.js"
 import Contacts from "./Contacts.js"
 
-class Login extends React.Component 
+class Login extends React.Component
 {
 	state = { show: false, showForgot: false };
 
@@ -20,7 +20,7 @@ class Login extends React.Component
 
   	hideModal = () => {
     	this.setState({ show: false });
-  	};  	
+  	};
 
   	showForgotModal = () => {
     	this.setState({ showForgot: true });
@@ -73,16 +73,16 @@ class Login extends React.Component
 	    "password": this.state.password,
 	    "username": this.state.username,
 		}
-	
+
 		const options = {
 			method : 'POST',
 			headers: { 	"Content-Type": "application/json; charset=UTF-8",
 						"username" : [this.state.username],
-						"password" : [this.state.password]	
+						"password" : [this.state.password]
 					},
-			body : JSON.stringify(this.state),
+			body : JSON.stringify(this.state)
 		};
-		
+
 		fetch('https://murmuring-oasis-54026.herokuapp.com/user/login/', options)
             .then(response => response.json())
 			.then(data => {
@@ -101,9 +101,9 @@ class Login extends React.Component
 				console.log("userId : " + this.state.userId)
 				const user = JSON.stringify(this.state);
 				localStorage.setItem('user', user);
-				ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
+				ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 				ReactDOM.render(<Contacts />, document.getElementById('root'))
-		
+
 			})
 	}
 
@@ -130,8 +130,8 @@ class Login extends React.Component
 									<form onSubmit={this.handleSubmit}>
 									  	<div className="form-group">
 											<label>Username</label>
-											<input className="form-control form-control-lg" 
-													type="username" 
+											<input className="form-control form-control-lg"
+													type="username"
 													name="username"
 													value={this.state.username}
 													onChange={this.handleUsernameChange}
@@ -139,9 +139,9 @@ class Login extends React.Component
 									  	</div>
 									  	<div className="form-group">
 											<label>Password</label>
-											<input className="form-control form-control-lg" 
-													type="password" 
-													name="password" 
+											<input className="form-control form-control-lg"
+													type="password"
+													name="password"
 													value={this.state.password}
 													onChange={this.handlePasswordChange}
 													placeholder="Enter Your Password" />
@@ -153,7 +153,7 @@ class Login extends React.Component
 												bssize="large"
 												disabled={!this.validateForm()}
 												type="submit"
-													
+
 												className="btn btn-primary"
 											>
 											Login

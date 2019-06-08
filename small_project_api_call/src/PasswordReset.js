@@ -140,7 +140,7 @@ export default class PasswordReset extends React.Component
                 </div>
 				<div className="form-group col-md-6">
                   <label>New Password</label>
-                  <input type="newPass" className="form-control" 
+                  <input type="password" className="form-control" 
                     id="newPass"
 					name="newPass"
                     value={this.state.newPass}
@@ -149,7 +149,7 @@ export default class PasswordReset extends React.Component
                 </div>
 				<div className="form-group col-md-6">
                   <label>Confirm New Password</label>
-                  <input type="confirm" className="form-control" 
+                  <input type="password" className="form-control" 
                     id="confirm"
 					name="confirm"
                     value={this.state.confirm}

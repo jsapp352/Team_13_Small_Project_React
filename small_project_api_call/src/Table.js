@@ -7,6 +7,7 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 import ReactDOM from "react-dom"
 import Contacts from './Contacts'
 import UpdateContact from './UpdateContact.js'
+import Loading from "./Loading"
 
 // var data = [
 // 	{ firstName: 'Tony', lastName: 'Giumenta', phone: '123-456-7890', email: 'tony@google.com' },
@@ -87,11 +88,10 @@ class Table extends React.Component {
 			body : JSON.stringify(id)
 		};
 		
-		fetch(url, options).then(response => response.json()).then(data=>{console.log(data);
-			ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
-			ReactDOM.render(<Contacts />, document.getElementById('root'))
+		fetch(url, options);
 
-		})
+		ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
+		ReactDOM.render(<Loading />, document.getElementById('root'))
 	}
 
 	state = { show: false, item: "" };
@@ -114,35 +114,38 @@ class Table extends React.Component {
 	updateContact(contact) {
 		const c = JSON.parse(contact);
 
-		console.log("Contact ID to update = " + c.contactId);
+		// console.log("Contact ID to update = " + c.contactId);
 
-		const json = {
-			firstName: this.state.firstName,
-			lastName: this.state.lastName,
-			password: this.state.password,
-			securityAnswer: this.state.securityAnswer,
-			securityQuestion: this.state.securityQuestion,
-			userId: this.state.userId,
-			username: this.state.username,
-		};
+		// const json = {
+		// 	firstName: this.state.firstName,
+		// 	lastName: this.state.lastName,
+		// 	password: this.state.password,
+		// 	securityAnswer: this.state.securityAnswer,
+		// 	securityQuestion: this.state.securityQuestion,
+		// 	userId: this.state.userId,
+		// 	username: this.state.username,
+		// };
 
-		console.log("First: " + JSON.stringify(json));
+		// console.log("First: " + JSON.stringify(json));
 
-  		const options = {
-	      	method : 'PUT',
-	      	headers: { "Content-Type": "application/json; charset=UTF-8"},
-	      	body : JSON.stringify(json),
-	    };
+  // 		const options = {
+	 //      	method : 'PUT',
+	 //      	headers: { "Content-Type": "application/json; charset=UTF-8"},
+	 //      	body : JSON.stringify(json),
+	 //    };
 
-		const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/';
-		console.log(url);
+		// const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/';
+		// console.log(url);
 
-	    fetch(url, options)
-	        .then(response => response.json())
-	      	.then(data => {
-	      		this.setState({json: data});
-	      		console.log("Second: " + JSON.stringify(json));
-	      	})
+	 //    fetch(url, options)
+	 //        .then(response => response.json())
+	 //      	.then(data => {
+	 //      		this.setState({json: data});
+	 //      		console.log("Second: " + JSON.stringify(json));
+		// 		localStorage.setItem("contact", JSON.stringify(this.state));
+	 //      	})
+
+		
 	}
 
 	render() {

@@ -55,8 +55,8 @@ class Signup extends React.Component
 
 	handleSubmit = event => {
 		event.preventDefault();
-		let password = require('password-hash');
-		let hashedPassword;
+		const bcrypt = require('bcryptjs');
+		this.state.password = bcrypt.hashSync(this.state.password);
 		console.log(this.state)
 		const options = {
 			method : 'POST',
@@ -75,7 +75,6 @@ class Signup extends React.Component
 				this.state.securityQuestion = data.securityQuestion;
 				this.state.securityAnswer = data.securityAnswer;
 				this.state.username = data.username;
-				this.state.password = password.generate(data.password);
 				const user = localStorage.setItem('user', JSON.stringify(this.state));
 			// console.log("Local Stored from Signup.js : " + user);
 				console.log("added user: "+ this.state.password)

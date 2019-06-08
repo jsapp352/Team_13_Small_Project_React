@@ -9,7 +9,7 @@ import { Route, Link, BrowserRouter, Switch} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
-
+document.title="Contact Manager"
 ReactDOM.render(<BrowserRouter>
 				<Switch>
 					<Route path="/" component={App}></Route>

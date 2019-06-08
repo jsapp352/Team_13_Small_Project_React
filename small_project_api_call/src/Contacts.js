@@ -13,6 +13,8 @@ import Card from './Card.js';
 import Table from './Table.js';
 import NewContact from './NewContact.js';
 import { withRouter } from 'react-router';
+import Login from './Login'
+import App from './App'
 
 class Contacts extends React.Component {
 
@@ -32,6 +34,7 @@ class Contacts extends React.Component {
 				crit : props.crit,
 				critPresent: true,
 				contacts: [],	
+				phone: user.phone,
 			}
 			console.log(this.state)
 		}
@@ -46,6 +49,7 @@ class Contacts extends React.Component {
 				crit : '',
 				critPresent: false,
 				contacts: [],	
+				phone: user.phone,
 			}
 		}
 
@@ -92,8 +96,44 @@ class Contacts extends React.Component {
 		localStorage.setItem("option", JSON.stringify(this.state));
 	}
 
-	logoutHandler =(e) => {
-        this.props.history.push('/login')
+	componentWillMount()
+	{
+		let url;
+		console.log(url);
+	
+	
+		let options = {};
+		if(this.state.crit === '')
+		{
+			url = 'https://murmuring-oasis-54026.herokuapp.com/contact/userId/' + this.state.userId + '/' ;
+			options = {
+				method : 'GET',
+				headers: { 	"Content-Type": "application/json; charset=UTF-8"},
+			}
+		}
+		else
+		{
+			console.log('criteria: ' + [this.state.crit])
+			url = 'https://murmuring-oasis-54026.herokuapp.com/contact/search/' + this.state.userId + '/' ;
+			options = {
+				method : 'GET',
+				headers: { 	"Content-Type": "application/json; charset=UTF-8", "criteria": [this.state.crit]},
+			}
+			this.state.critPresent = true;
+		}
+		fetch(url,options)
+		.then(response=>response.json())
+		.then(data => {
+			this.state.contacts = data;
+			console.log(data);
+			this.setState({contacts:data})			
+		})
+	}
+
+	logoutHandler()
+	{
+        ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
+		ReactDOM.render(<App />, document.getElementById('root'))
     }
 
 	render() {	
@@ -111,23 +151,18 @@ class Contacts extends React.Component {
 							<small></small>
 						</div>
 						<ul className="sidebar-nav">
-							<br/>
-							<li className="sidebar-item active">
-								<a className="sidebar-link" onClick={this.showCardView}>
-									<FontAwesomeIcon icon={faHome} /> <span className="text-center">Dashboard</span>
-								</a>
-							</li>
-							<li className="sidebar-item">
-								<a onClick={this.showTableView} className="sidebar-link">
-									<FontAwesomeIcon icon={faAddressBook} /> <span className="text-center">&nbsp;Contacts</span>
-								</a>
-							</li>
+							<div className="sidebar-user">
+							<div className="font-weight-bold">{this.state.firstName} {this.state.lastName}</div>
+							<small></small>
+						</div><div className="sidebar-user">
+							<div className="font-weight-bold">You're Looking Great Today</div>
+							<small></small>
+						</div><br/>
 						</ul>
 					</div>
 				</nav>
 				<div className="main">
 					<nav className="navbar navbar-expand navbar-theme">
-						<a className="sidebar-toggle d-flex mr-2"><i className="hamburger align-self-center" /></a>
 						<form className="form-inline my-2 my-lg-0">
   							<input className="form-control mr-sm-2"  id="crit" name="crit" type="crit" value={this.state.crit} onChange={this.handleChange} placeholder="Search" aria-label="Search" />
   							<button className="btn btn-light my-2 my-sm-0" onClick={this.search} type="submit">Search</button>
@@ -144,7 +179,7 @@ class Contacts extends React.Component {
 									</a>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link" href="" onClick={e=>this.logoutHandler(e)} id="addContactDropdown"><FontAwesomeIcon icon={faSignOutAlt} className="align-middle" /></a>
+									<a className="nav-link" style={{cursor: "pointer", color: "#C7C8C9"}} onClick={this.logoutHandler} id="addContactDropdown"><FontAwesomeIcon icon={faSignOutAlt} className="align-middle" /></a>
 								</li>
 							</ul>
 						</div>
@@ -153,7 +188,7 @@ class Contacts extends React.Component {
 						<div className="container-fluid">
 							<div className="header text-center">
 								<h1 className="header-title">
-									Welcome back, {this.state.firstName}!
+									Welcome, {this.state.firstName}!
 								</h1>
 							</div>
 							<Table critPresent={this.state.critPresent} crit={this.state.crit}/>

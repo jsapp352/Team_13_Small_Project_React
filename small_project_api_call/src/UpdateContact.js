@@ -11,18 +11,30 @@ export default class UpdateContact extends React.Component {
 		const user = JSON.parse(localStorage.getItem('contact'));
 		super(props);
 		this.state = {
-			firstName: user.firstName,
-			lastName: user.lastName,
-			userId: user.userId,
-			address: user.address,
-			email: user.email,
-			phone: user.phone,
-			contactId: user.contactId,
-			createDate: user.createDate,
+			firstName: props.firstName,
+			lastName: props.lastName,
+			userId: props.userId,
+			address: props.address,
+			email:props.email,
+			phone:props.phone,
+			contactId: props.contactId,
+			createDate: props.createDate,
+			displayName: "",
+			tempfirstName: "",
+			templastName: '',
+			tempuserId: 0,
+			tempaddress: "",
+			tempemail: "",
+			tempphone: 0,
+			tempcontactId: 0,
+			tempcreateDate: "",
+			tempdisplayName: "",
 		}
 
-		this.state.userId = user.userId;
+		// this.state.userId = user.userId;
 		// this.update = this.update.bind(this);
+		console.log(this.state);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	exitPage()
@@ -31,57 +43,76 @@ export default class UpdateContact extends React.Component {
 	    ReactDOM.render(<Contacts />, document.getElementById('root'))
 	}
 	  
-	handleChange = event => {
-	    this.setState({
-	    [event.target.id]: event.target.value
-	    });
+	// handleChange = event => {
+	handleChange(c, event){
+			console.log(c);
+		if(event.target.value)
+		{
+		    this.setState({
+		    [event.target.id]: event.target.value
+	    	});
+		}
+		else
+		{
+			this.setState({
+			[event.target.id]: c
+			})
+		}
 	}
 
 
-	// update() {
-	// 	const json = {
-	// 		firstName: this.state.firstName,
-	// 		lastName: this.state.lastName,
-	// 		password: this.state.password,
-	// 		securityAnswer: this.state.securityAnswer,
-	// 		securityQuestion: this.state.securityQuestion,
-	// 		userId: this.state.userId,
-	// 		username: this.state.username,
-	// 	};
+	
 
-	// 	console.log("First: " + json);
+	handleSubmit()
+	{
 
- //  		const options = {
-	//       	method : 'PUT',
-	//       	headers: { "Content-Type": "application/json; charset=UTF-8"},
-	//       	body : JSON.stringify(json),
-	//     };
+		if(this.state.contactId == 0)
+		{
+			return null;
+		}
 
-	// 	const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/';
-	// 	console.log(url);
+		this.state.firstName = this.state.tempfirstName;
+		this.state.lastName = this.state.templastName;
+		this.state.email = this.state.tempemail;
+		this.state.address = this.state.tempaddress;
+		this.state.phone = this.state.tempphone;
+		// console.log("state in: ")
+		console.log('herer' + this.state.contactId)
+		console.log(this.state)
+  		const options = {
+	      method : 'PUT',
+	      headers: { "Content-Type": "application/json; charset=UTF-8"},
+	      body : JSON.stringify(this.state),
+	    };
 
-	//     fetch(url, options)
-	//         .then(response => response.json())
-	//       	.then(data => {
-	//       		this.setState({json: data});
-	//       		console.log("Second: " + json);
-	//       	})
-	// }
+		const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/';
+	    fetch(url, options)
+	            .then(response => response.json())
+	      .then(data => {
+			ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
+	   		ReactDOM.render(<Contacts />, document.getElementById('root'))
+		}) 
+		this.exitPage();
+
+	}
 
 	render() {
 		var { show, contact, handleClose, handleSubmit } = this.props;
 		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
-		
 		if (contact == undefined)
 			return null;
 
 		const c = JSON.parse(contact);
-
+		this.state.contactId = c.contactId;
+		this.state.userId = c.userId;
+		console.log(this.state.contactId)
+		// this.fetchHelper(c);
+		const displayName = c.firstName + " " + c.lastName
 		return (
 			<div className={showHideClassName} style={{zIndex: 1}}>
 				<div className="pop-inner">
 					<div className="modal-header">
-						<h5 className="modal-title">Update Contact Info For: {this.state.firstName} {this.state.lastName}</h5>
+						<h5 className="modal-title">Update Contact Info For: {displayName}</h5>
 						<button onClick={handleClose} type="button" className="close" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -91,38 +122,38 @@ export default class UpdateContact extends React.Component {
 							<div className="form-row">
 								<div className="form-group col-md-6">
 									<label htmlFor="inputFirstN">First Name</label>
-									<input type="text" value={c.firstName} className="form-control" onChange = {this.handleChange} id="firstName" placeholder="First Name" />
+									<input type="text" className="form-control" onChange ={(event) => this.handleChange(c.firstName, event)} id="tempfirstName" placeholder={c.firstName} />
 								</div>
 								<div className="form-group col-md-6">
 									<label htmlFor="inputLastN">Last Name</label>
-									<input type="text" value={c.lastName}className="form-control" onChange = {this.handleChange} id="lastName" placeholder="Last Name" />
+									<input type="text" className="form-control" onChange ={(event) => this.handleChange(c.lastName, event)}  id="templastName" placeholder={c.lastName} />
 								</div>
 							</div>
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputPhone">Phone Number:</label>
-									<input type="tel"value={c.phone} className="form-control" onChange = {this.handleChange} id="phone" placeholder="Phone Number" />
+									<input type="tel" className="form-control" onChange ={(event) => this.handleChange(c.phone, event)}  id="tempphone" placeholder={c.phone} />
 								</div>
 							</div>
 							<br />
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputEmail">Email:</label>
-									<input type="email"value={c.email} className="form-control" onChange = {this.handleChange} id="email" placeholder="Email" />
+									<input type="email" className="form-control" onChange ={(event) => this.handleChange(c.email, event)} id="tempemail" placeholder={c.email} />
 								</div>
 							</div>
 							<br />
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputAddress">Address:</label>
-									<input type="text" value={c.address}className="form-control" onChange = {this.handleChange} id="address" placeholder="123 University Dr, Orlando, FL 32801" />
+									<input type="address" className="form-control" onChange ={(event) => this.handleChange(c.address, event)} id="tempaddress" placeholder={c.address} />
 								</div>
 							</div>
 							<br />
 				
 							<br />
 							<div className="text-right">
-								<button type="submit" onClick={handleSubmit} className="btn btn-primary">Submit</button>
+								<button type="submit" onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
 							</div>
 						</form>
 					</div>

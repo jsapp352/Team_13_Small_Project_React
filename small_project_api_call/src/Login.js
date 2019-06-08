@@ -68,22 +68,25 @@ class Login extends React.Component
 	handleSubmit = event => {
 		let password = require('password-hash');
 		let hashedPassword;
+		const url = 'https://murmuring-oasis-54026.herokuapp.com/user/username/'+this.state.username;
 		event.preventDefault();
 		const json = {
 	    "password": this.state.password,
 	    "username": this.state.username,
 		}
-
+		const bcrypt = require('bcryptjs');
+		// const pass = bcrypt.hashSync(this.state.password))
+		
 		const options = {
-			method : 'POST',
+			method : 'Get',
 			headers: { 	"Content-Type": "application/json; charset=UTF-8",
-						"username" : [this.state.username],
-						"password" : [this.state.password]
+						// "username" : [this.state.username],
+						// "password" : [this.state.password]
 					},
-			body : JSON.stringify(this.state)
+			// body : JSON.stringify(this.state)
 		};
-
-		fetch('https://murmuring-oasis-54026.herokuapp.com/user/login/', options)
+	try{
+		fetch(url, options)
             .then(response => response.json())
 			.then(data => {
 
@@ -93,19 +96,26 @@ class Login extends React.Component
 				this.state.lastName = data.lastName;
 				this.state.phone = data.phone;
 				this.state.username = data.username;
-				this.state.password = password.generate(data.password);
 				this.state.securityQuestion = data.securityQuestion;
 				this.state.securityAnswer = data.securityAnswer;
 
 
-				console.log("userId : " + this.state.userId)
+				console.log("user : " +data.password )
 				const user = JSON.stringify(this.state);
 				localStorage.setItem('user', user);
-				ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-				ReactDOM.render(<Contacts />, document.getElementById('root'))
 
+				bcrypt.compare(this.state.password, data.password).then(function(res) {
+					ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+					ReactDOM.render(<Contacts />, document.getElementById('root'))
+				    // res == true
+				});
 			})
-	}
+		}
+		catch(error)
+		{
+			return(<div>Incorrect UserName/Password</div>)
+		}
+	}		
 
 	render() {
 		return (
@@ -153,7 +163,6 @@ class Login extends React.Component
 												bssize="large"
 												disabled={!this.validateForm()}
 												type="submit"
-
 												className="btn btn-primary"
 											>
 											Login

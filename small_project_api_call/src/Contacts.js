@@ -12,6 +12,7 @@ import { faAddressBook } from '@fortawesome/free-solid-svg-icons';
 import Card from './Card.js';
 import Table from './Table.js';
 import NewContact from './NewContact.js';
+import { withRouter } from 'react-router';
 
 class Contacts extends React.Component {
 
@@ -89,8 +90,11 @@ class Contacts extends React.Component {
 	    });
 		console.log(this.state)
 		localStorage.setItem("option", JSON.stringify(this.state));
-
 	}
+
+	logoutHandler =(e) => {
+        this.props.history.push('/login')
+    }
 
 	render() {	
 		return (
@@ -140,7 +144,7 @@ class Contacts extends React.Component {
 									</a>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link" href="login.html" id="addContactDropdown"><FontAwesomeIcon icon={faSignOutAlt} className="align-middle" /></a>
+									<a className="nav-link" href="" onClick={e=>this.logoutHandler(e)} id="addContactDropdown"><FontAwesomeIcon icon={faSignOutAlt} className="align-middle" /></a>
 								</li>
 							</ul>
 						</div>
@@ -152,9 +156,6 @@ class Contacts extends React.Component {
 									Welcome back, {this.state.firstName}!
 								</h1>
 							</div>
-
-							
-
 							<Table critPresent={this.state.critPresent} crit={this.state.crit}/>
 						</div>
 					</main>

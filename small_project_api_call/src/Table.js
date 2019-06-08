@@ -18,7 +18,6 @@ import UpdateContact from './UpdateContact.js'
 // ];
 
 class Table extends React.Component {
-
 	
 	constructor(props)
 	{
@@ -39,7 +38,7 @@ class Table extends React.Component {
 		console.log(this.state)
 		this.state.userId = user.userId;
 		this.deleteContact = this.deleteContact.bind(this);
-		this.updateContact = this.updateContact.bind(this);
+		// this.updateContact = this.updateContact.bind(this);
 	}
 	
 	componentWillMount()
@@ -76,29 +75,74 @@ class Table extends React.Component {
 		})
 	}
 
-	deleteContact(event)
+	deleteContact(id, event)
 	{
-		const id = this.state.contactId;
+		//const id = this.state.contactId;
+		console.log("CONTACT ID = " + id);
 		
-		console.log(event)
-		const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/9';
+		const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/' + id + '/';
 		const options = {
 			method : 'DELETE',
-			headers: { 	"Content-Type": "application/json; charset=UTF-8" }
+			headers: { 	"Content-Type": "application/json; charset=UTF-8" },
+			body : JSON.stringify(id)
 		};
 		
-		fetch(url, options).then(response=>response.json()).then(data=>{console.log(data);
-		ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
-		ReactDOM.render(<Contacts />, document.getElementById('root'))
+		fetch(url, options).then(response => response.json()).then(data=>{console.log(data);
+			ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
+			ReactDOM.render(<Contacts />, document.getElementById('root'))
 
 		})
 	}
 
-	updateContact()
-	{
-		localStorage.setItem("contact", JSON.stringify(this.state));
-		ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
-		ReactDOM.render(<UpdateContact />, document.getElementById('root'))
+	state = { show: false, item: "" };
+
+  	showModal = (item) => {
+    	this.setState({ show: true, contact: item});
+  	};
+
+  	hideModal = () => {
+    	this.setState({ show: false });
+  	};  
+
+	// updateContact()
+	// {
+	// 	localStorage.setItem("contact", JSON.stringify(this.state));
+	// 	ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
+	// 	ReactDOM.render(<UpdateContact show={this.state.show} handleClose={this.hideModal} />, document.getElementById('root'))
+	// }
+
+	updateContact(contact) {
+		const c = JSON.parse(contact);
+
+		console.log("Contact ID to update = " + c.contactId);
+
+		const json = {
+			firstName: this.state.firstName,
+			lastName: this.state.lastName,
+			password: this.state.password,
+			securityAnswer: this.state.securityAnswer,
+			securityQuestion: this.state.securityQuestion,
+			userId: this.state.userId,
+			username: this.state.username,
+		};
+
+		console.log("First: " + JSON.stringify(json));
+
+  		const options = {
+	      	method : 'PUT',
+	      	headers: { "Content-Type": "application/json; charset=UTF-8"},
+	      	body : JSON.stringify(json),
+	    };
+
+		const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/';
+		console.log(url);
+
+	    fetch(url, options)
+	        .then(response => response.json())
+	      	.then(data => {
+	      		this.setState({json: data});
+	      		console.log("Second: " + JSON.stringify(json));
+	      	})
 	}
 
 	render() {
@@ -110,9 +154,9 @@ class Table extends React.Component {
 					<td className="contact-number">{item.phone}</td>
 					<td className="contact-email d-none d-md-table-cell">{item.email}</td>
 					<td className="table-action">
-						<a href="#"><span onClick={this.updateContact}><FontAwesomeIcon icon={faPen} className="align-middle" /></span></a>
+						<a href="#"><span onClick={this.showModal.bind(this, JSON.stringify(item))}><FontAwesomeIcon icon={faPen} className="align-middle" /></span></a>
 						&nbsp;&nbsp;
-						<a href="#"><span type="submit"  onClick={this.deleteContact}><FontAwesomeIcon icon={faTrash} className="align-middle" /></span></a>
+						<a href="#"><span type="submit" onClick={this.deleteContact.bind(this, item.contactId)}><FontAwesomeIcon icon={faTrash} className="align-middle" /></span></a>
 					</td>
 				</tr>
 			)
@@ -127,11 +171,11 @@ class Table extends React.Component {
 
 		return (
 			<div className="row">
-				<div className="col-12 col-xl-8">
+				<UpdateContact show={this.state.show} contact={this.state.contact} handleClose={this.hideModal} handleSubmit={this.updateContact.bind(this, this.state.contact)}/>
+				<div className="col-12 col-xl-12">
 					<div className="card">
 						<div className="card-header">
 							<h5 className="card-title">Your Contacts</h5>
-							<h6 className="card-subtitle text-muted">Some text here (maybe)</h6>
 						</div>
 						<table className="table table-striped table-hover">
 							<thead>

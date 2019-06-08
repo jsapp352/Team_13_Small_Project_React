@@ -48,21 +48,18 @@ class ForgotPassword extends React.Component {
 	
   }
 
-	exit()
-	{
-		ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
-	    ReactDOM.render(<Login	/>, document.getElementById('root'))
-	}
-
 	render() {
+		var { show, handleClose } = this.props;
+		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
+
 		return (
-			<div className="pop-outer">
+			<div className={showHideClassName}>
 				<div className="pop-inner">
 					<div className="modal-header">
 						<h5 className="modal-title">Recover Password</h5>
-						<button type="button" onClick={this.exit}className="close" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
+						<button onClick={handleClose} type="button" className="close" aria-label="Close">
+              				<span aria-hidden="true">×</span>
+            			</button>
 					</div>
 					<div className="modal-body">
 						<form>

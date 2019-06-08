@@ -28,7 +28,7 @@ export default class Contact extends React.Component
 			userId: user.userId,
 			option: "",
 		}
-
+	
 		console.log("user: " + this.state.userId)
 	}
 
@@ -69,7 +69,7 @@ export default class Contact extends React.Component
 			method = 'GET';
 			extension = "userId/" + [this.state.userId];
 		}
-
+		
 		let options;
 		if(method === "GET")
 		{
@@ -87,8 +87,7 @@ export default class Contact extends React.Component
 			};
 		}
 
-
-		const url = new URL('http://elasticbeanstalk-us-east-2-549115802385.s3-website.us-east-2.amazonaws.com/contact/' + extension);		
+		const url = new URL('http://localhost:5000/contact/' + extension);		
 		console.log(url);
 
 		fetch(url, options)
@@ -96,7 +95,7 @@ export default class Contact extends React.Component
 			.then(data => {console.log(data)
 
 				this.setState({
-					address : data.address,
+					address : data.address,	
 					contactId: 0,
 					createDate: "",
 					email: data.email,
@@ -104,16 +103,16 @@ export default class Contact extends React.Component
 					lastName: data.lastNmae,
 					phone: data.phone,
 				})
-			})
+			})	
 	}
 
 
 	handleSubmit = event => {
 		event.preventDefault();
-
+		
 		this.contactControl()
 	}
-
+	
 	render()
 	{
 		// const op = props.
@@ -147,3 +146,4 @@ const style = {
   margin: 15,
   flex : 1,
 };
+

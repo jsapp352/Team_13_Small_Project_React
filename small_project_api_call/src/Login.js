@@ -10,8 +10,26 @@ import User from "./User"
 import ForgotPassword from "./ForgotPassword.js"
 import Contacts from "./Contacts.js"
 
-class Login extends React.Component
+class Login extends React.Component 
 {
+	state = { show: false, showForgot: false };
+
+  	showModal = () => {
+    	this.setState({ show: true });
+  	};
+
+  	hideModal = () => {
+    	this.setState({ show: false });
+  	};  	
+
+  	showForgotModal = () => {
+    	this.setState({ showForgot: true });
+  	};
+
+  	hideForgotModal = () => {
+    	this.setState({ showForgot: false });
+  	};
+
 	constructor() {
 		super();
 
@@ -27,13 +45,6 @@ class Login extends React.Component
 			securityQuestion: "",
 			securityAnswer: "",
 		};
-	}
-
-
-	forgotPassword()
-	{
-		ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
-		ReactDOM.render(<ForgotPassword />, document.getElementById('root'))
 	}
 
 	validateForm() {
@@ -54,12 +65,6 @@ class Login extends React.Component
 		});
 	}
 
-	handleCreate()
-	{
-		ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
-		ReactDOM.render(<Signup />, document.getElementById('root'))
-	}
-
 	handleSubmit = event => {
 		let password = require('password-hash');
 		let hashedPassword;
@@ -73,7 +78,7 @@ class Login extends React.Component
 			method : 'POST',
 			headers: { 	"Content-Type": "application/json; charset=UTF-8",
 						"username" : [this.state.username],
-						"password" : [this.state.password]
+						"password" : [this.state.password]	
 					},
 			body : JSON.stringify(this.state),
 		};
@@ -125,8 +130,8 @@ class Login extends React.Component
 									<form onSubmit={this.handleSubmit}>
 									  	<div className="form-group">
 											<label>Username</label>
-											<input className="form-control form-control-lg"
-													type="username"
+											<input className="form-control form-control-lg" 
+													type="username" 
 													name="username"
 													value={this.state.username}
 													onChange={this.handleUsernameChange}
@@ -134,13 +139,13 @@ class Login extends React.Component
 									  	</div>
 									  	<div className="form-group">
 											<label>Password</label>
-											<input className="form-control form-control-lg"
-													type="password"
-													name="password"
+											<input className="form-control form-control-lg" 
+													type="password" 
+													name="password" 
 													value={this.state.password}
 													onChange={this.handlePasswordChange}
 													placeholder="Enter Your Password" />
-											<small><a onClick={this.forgotPassword}>Forgot password?</a></small>
+											<small><a style={{cursor: "pointer"}} onClick={this.showForgotModal}>Forgot password?</a></small>
 									  	</div>
 									  	<div className="text-center mt-3">
 											<Button
@@ -154,7 +159,7 @@ class Login extends React.Component
 											Login
 											</Button>
 									  	</div><br />
-									  	<p>Not signed up yet? <a href="#" className="open"onClick={this.handleCreate}>
+									  	<p>Not signed up yet? <a href="#" className="open" onClick={this.showModal}>
 										  	Create account
 										</a></p>
 									</form>
@@ -165,6 +170,8 @@ class Login extends React.Component
 		  		</div>
 			</div>
 	  	</div>
+	  	<Signup show={ this.state.show } handleClose={this.hideModal} />
+	  	<ForgotPassword show={ this.state.showForgot } handleClose={this.hideForgotModal} />
 		</main>
 		<div className="cover d-none d-sm-none d-md-block" style={{"height" : "100%", "width" : "50%", "backgroundImage" : "url(" + cover + ")"}} /></div>
 		);

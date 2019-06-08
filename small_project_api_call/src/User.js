@@ -12,7 +12,7 @@ import Contact from './Contact'
 
 
 
-// This will be changed. Render method uses imports that can be 
+// This will be changed. Render method uses imports that can be
 // removed when Ivan finishes jsx
 export default class User extends React.Component
 {
@@ -36,7 +36,7 @@ export default class User extends React.Component
 		}
 		// console.log("asdnaslknd ::: " + user.userId);
 	}
-	
+
 	processOptions()
 	{
 		const op = this.state.option;
@@ -47,7 +47,7 @@ export default class User extends React.Component
 		{
 			method = 'POST';
 			extension = '';
-		}	
+		}
 		else if(op === 'updateUser')
 		{
 			method = 'PUT';
@@ -78,8 +78,8 @@ export default class User extends React.Component
 			method = 'POST';
 			extension = "validateSecurityQuestion/";
 		}
-		
-		const url = new URL('//localhost:5000/user/' + extension);		
+
+		const url = new URL('//murmuring-oasis-54026.herokuapp.com/user/' + extension);		
 		console.log(url);
 		const options = {
 			method : method,
@@ -88,7 +88,7 @@ export default class User extends React.Component
 		};
 		fetch(url, options)
             .then(response => response.json())
-			.then(data => {console.log(data)})		
+			.then(data => {console.log(data)})
 	}
 
 	handleSubmit = event => {
@@ -97,7 +97,7 @@ export default class User extends React.Component
 		// console.log(user);
 		this.contactControl()
 	}
-	
+
 	contactControl(event, props)
 	{
 		event.preventDefault();
@@ -105,10 +105,10 @@ export default class User extends React.Component
 		this.setState({
 			option: props.op,
 		})
-		
+
 		localStorage.setItem('contact', JSON.stringify(this.state));
-		ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
-        ReactDOM.render(<Contact />, document.getElementById('root'));	
+		ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+        ReactDOM.render(<Contact />, document.getElementById('root'));
 	}
 
 	render()
@@ -133,7 +133,7 @@ export default class User extends React.Component
 				<RaisedButton label="Log Out" primary={true} style={style} onClick={(event) => this.handleSubmit(event)}/>
 				<br></br>
 				</div>
-			</MuiThemeProvider>)		
+			</MuiThemeProvider>)
 	}
 
 }

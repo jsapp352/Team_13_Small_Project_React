@@ -40,6 +40,11 @@ class NewContact extends React.Component {
 	addContact()
 	{
 		console.log(this.state)
+
+		// Check for undefined phone value (should be a number)
+		if (this.state.phone === undefined)
+			return;
+
 		const options = {
 	      method : 'POST',
 	      headers: { "Content-Type": "application/json; charset=UTF-8" },

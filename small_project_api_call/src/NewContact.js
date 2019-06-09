@@ -41,8 +41,8 @@ class NewContact extends React.Component {
 	{
 		console.log(this.state)
 
-		// Check for undefined phone value (should be a number)
-		if (this.state.phone === undefined)
+		// Check for undefined/non-integer phone value
+		if (this.state.phone === undefined || !Number.isInteger(this.state.phone))
 			// Set phone to 0 if it is undefined
 			this.setState({phone: 0});
 

@@ -33,7 +33,7 @@ export default class PasswordReset extends React.Component
 
 	exitPage()
 	{
-		localStorage.setItem('user', JSON.this.userify(this.state))
+		localStorage.setItem('user', JSON.stringify(this.state))
 	    ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
 	    ReactDOM.render(<Login />, document.getElementById('root'))
 	}
@@ -51,21 +51,18 @@ export default class PasswordReset extends React.Component
 		this.state.newPass === this.state.confirm)
 	{
 		this.state.password = this.state.newPass;
-
+		
+		const bcrypt = require('bcryptjs');
 
 		const json = {
 			  firstName: this.state.firstName,
 		  	  lastName: this.state.lastName,
-		 	  password: this.state.newPass,
+		 	  password: bcrypt.hashSync(this.state.newPass),
 			  securityAnswer: this.state.securityAnswer,
 			  securityQuestion: this.state.securityQuestion,
 			  userId: this.state.userId,
 			  username: this.state.username,
 		}
-
-
-
-
 
 		localStorage.setItem('user', JSON.stringify(this.state))
 		console.log("password successfully changed to: " + this.state.newPass)
@@ -87,15 +84,9 @@ export default class PasswordReset extends React.Component
 
 		}) 
 	}
-	else
-	{
+	
 		ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
 	    ReactDOM.render(<PasswordReset />, document.getElementById('root'))
-	
-	}
-	
-		ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
-	    ReactDOM.render(<Login />, document.getElementById('root'))
   }
 
 	render() {
@@ -111,33 +102,10 @@ export default class PasswordReset extends React.Component
           <div className="modal-body">
             <form>
               <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label>First Name</label>
-                  <input type="firstName" className="form-control" 
-                    id="tempFirst"
-                    value={this.state.tempFirst}
-                    onChange = {this.handleChange}
-                    placeholder="First Name" />
-                </div>
-                <div className="form-group col-md-6">
-                  <label>Last Name</label>
-                  <input type="lastName" className="form-control" 
-                    id="tempLast"
-					name="lastName"
-                    value={this.state.tempLast}
-                    onChange = {this.handleChange}
-                    placeholder="Last Name" />
-                </div>
+        
               </div>
               <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label>Username</label>
-                  <input type="text" className="form-control" 
-                    id="tempUser"
-                    value={this.state.tempUser}
-                    onChange = {this.handleChange}
-                    placeholder="Username" />
-                </div>
+        
 				<div className="form-group col-md-6">
                   <label>New Password</label>
                   <input type="password" className="form-control" 

@@ -39,6 +39,14 @@ class NewContact extends React.Component {
 
 	addContact()
 	{
+
+		if (this.state.phone === undefined || !Number.isInteger(this.state.phone))
+		{
+			// Set phone to 0 if it is undefined
+			this.state.phone = 0;
+		}
+
+
 		console.log(this.state)
 		const options = {
 	      method : 'POST',
@@ -96,7 +104,7 @@ class NewContact extends React.Component {
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputPhone">Phone Number:</label>
-									<input type="tel" className="form-control" onChange = {this.handleChange} id="phone" placeholder="Phone Number" />
+									<input type="tel" className="form-control" onChange = {this.handleChange} id="phone" placeholder="Format: 1234567890" />
 								</div>
 							</div>
 							<br />

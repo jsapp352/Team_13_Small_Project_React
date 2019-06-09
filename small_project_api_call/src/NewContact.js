@@ -39,6 +39,12 @@ class NewContact extends React.Component {
 	    });
 	}
 
+	handleNumberChanged = (values) => {
+		this.setState({
+			phone: values,
+		});
+	}
+
 	addContact()
 	{
 		console.log(this.state)
@@ -105,7 +111,7 @@ class NewContact extends React.Component {
 										format="(###) ###-####"
 										mask=""										
 										// placeholder="Phone Number Here"
-										onValueChange={this.handleChange}
+										onValueChange={this.handleNumberChanged}
 										value={this.state.phone.value}
 									/>
 								</div>

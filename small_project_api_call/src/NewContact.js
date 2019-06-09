@@ -43,8 +43,13 @@ class NewContact extends React.Component {
 
 		// Check for undefined/non-integer phone value
 		if (this.state.phone === undefined || !Number.isInteger(this.state.phone))
+		{
 			// Set phone to 0 if it is undefined
 			this.setState({phone: 0});
+
+			console.log("Set invalid phone value to 0:");
+			console.log(this.state);
+		}
 
 		const options = {
 	      method : 'POST',

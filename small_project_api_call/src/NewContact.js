@@ -106,7 +106,7 @@ class NewContact extends React.Component {
 										mask=""										
 										// placeholder="Phone Number Here"
 										onValueChange={this.handleChange}
-										value={this.state.userInput.value}
+										value={this.state.phone.value}
 									/>
 								</div>
 							</div>

@@ -27,10 +27,10 @@ class NewContact extends React.Component {
 
 	exitPage()
 	{
-	    ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
+	    ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 	    ReactDOM.render(<Contacts />, document.getElementById('root'))
 	}
-	  
+
 	handleChange = event => {
 	    this.setState({
 	    [event.target.id]: event.target.value
@@ -45,7 +45,7 @@ class NewContact extends React.Component {
 	      headers: { "Content-Type": "application/json; charset=UTF-8" },
 	      body : JSON.stringify(this.state),
 	    };
-		
+
 		fetch('https://murmuring-oasis-54026.herokuapp.com/contact/', options)
             .then(response => response.json())
 			.then(data => {
@@ -60,11 +60,11 @@ class NewContact extends React.Component {
 
 
 				console.log('adding contact: ' + this.state.contactId);
-				ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
+				ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 				ReactDOM.render(<Contacts />, document.getElementById('root'))
 			})
-		
-		ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
+
+		ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 	    ReactDOM.render(<Contacts />, document.getElementById('root'))
 	}
 
@@ -96,7 +96,16 @@ class NewContact extends React.Component {
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputPhone">Phone Number:</label>
-									<input type="tel" className="form-control" onChange = {this.handleChange} id="phone" placeholder="Phone Number" />
+									// <input type="tel" className="form-control" onChange = {this.handleChange} id="phone" placeholder="Phone Number" />
+									<NumberFormat
+									  format="(###) ###-####"
+									  mask=""
+									  name="phoneNumberInput"
+									  id="phone"
+									  placeholder="Phone Number Here"
+									  onValueChange={this.handleChange}
+									  // value={this.state.userInput.value}
+									/>
 								</div>
 							</div>
 							<br />
@@ -114,7 +123,7 @@ class NewContact extends React.Component {
 								</div>
 							</div>
 							<br />
-					
+
 							<br />
 							<div className="text-right">
 								<button type="submit" onClick={this.addContact} className="btn btn-primary">Submit</button>

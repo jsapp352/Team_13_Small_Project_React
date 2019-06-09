@@ -41,7 +41,7 @@ class NewContact extends React.Component {
 
 	handleNumberChanged = (values) => {
 		this.setState({
-			phone: parseInt(values),
+			phone: Number(values),
 		});
 	}
 
@@ -113,7 +113,7 @@ class NewContact extends React.Component {
 										isNumericString="true"										
 										// placeholder="Phone Number Here"
 										onValueChange={this.handleNumberChanged}
-										value={this.state.phone.value}
+										value={this.state.phone}
 									/>
 								</div>
 							</div>

@@ -36,10 +36,31 @@ class NewContact extends React.Component {
 	    [event.target.id]: event.target.value
 	    });
 	}
+	
+	isValid(x)
+	{
+		for(let i = 0; i < x.length; i++)
+		{
+			if(!Number.isInteger(parseInt(x.charAt(i))))
+			{
+				return false;
+			}
+		}
 
+		return true;
+	}
 	addContact()
 	{
-		console.log(this.state)
+
+		let x = parseInt(this.state.phone);
+		if (this.state.phone === undefined || !this.isValid(this.state.phone))
+		{
+			// Set phone to 0 if it is undefined
+			this.state.phone = 0;
+		}
+
+	
+		console.log(parseInt('1123asdd'))
 		const options = {
 	      method : 'POST',
 	      headers: { "Content-Type": "application/json; charset=UTF-8" },
@@ -96,7 +117,7 @@ class NewContact extends React.Component {
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputPhone">Phone Number:</label>
-									<input type="tel" className="form-control" onChange = {this.handleChange} id="phone" placeholder="Phone Number" />
+									<input type="tel" className="form-control" onChange = {this.handleChange} id="phone" placeholder="Format: 1234567890" />
 								</div>
 							</div>
 							<br />

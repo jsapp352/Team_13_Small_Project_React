@@ -154,7 +154,7 @@ class Table extends React.Component {
 			contacts.push(
 				<tr key={index}>
 					<td className="contact-name">{item.firstName} {item.lastName}</td>
-					<td className="contact-number">{item.phone}</td>
+					<td className="contact-number">{item.phone === 0 ? null : item.phone}</td>
 					<td className="contact-email d-none d-md-table-cell">{item.email}</td>
 					<td className="table-action">
 						<a href="#"><span onClick={this.showModal.bind(this, JSON.stringify(item))}><FontAwesomeIcon icon={faPen} className="align-middle" /></span></a>

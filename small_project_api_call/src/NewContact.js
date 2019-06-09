@@ -36,18 +36,31 @@ class NewContact extends React.Component {
 	    [event.target.id]: event.target.value
 	    });
 	}
+	
+	isValid(x)
+	{
+		for(let i = 0; i < x.length; i++)
+		{
+			if(!Number.isInteger(parseInt(x.charAt(i))))
+			{
+				return false;
+			}
+		}
 
+		return true;
+	}
 	addContact()
 	{
 
-		if (this.state.phone === undefined || !Number.isInteger(this.state.phone))
+		let x = parseInt(this.state.phone);
+		if (this.state.phone === undefined || !this.isValid(this.state.phone))
 		{
 			// Set phone to 0 if it is undefined
 			this.state.phone = 0;
 		}
 
-
-		console.log(this.state)
+	
+		console.log(parseInt('1123asdd'))
 		const options = {
 	      method : 'POST',
 	      headers: { "Content-Type": "application/json; charset=UTF-8" },

@@ -15,6 +15,8 @@ class ForgotPassword extends React.Component {
 			securityQuestion: '',
 			securityAnswer: '',
 			userId:0,
+			lastName: '',
+			firstName: '',
 		}
 	}
 
@@ -39,6 +41,8 @@ class ForgotPassword extends React.Component {
 			this.state.securityAnswer = data.securityAnswer;
 			this.state.securityQuestion = data.securityQuestion;
 			this.state.userId = data.userId;
+			this.state.lastName = data.lastName;
+			this.state.firstName = data.firstName;
 			localStorage.setItem('user', JSON.stringify(data))
 			console.log(data)
 			localStorage.setItem('user', JSON.stringify(this.state))

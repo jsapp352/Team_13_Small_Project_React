@@ -112,7 +112,10 @@ class Login extends React.Component
 				ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 				ReactDOM.render(<Login />, document.getElementById('root'))
 		
-			})
+			}).catch((error) => {
+  					ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+				ReactDOM.render(<Login />, document.getElementById('root'))
+				})
 		}
 		catch(error)
 		{

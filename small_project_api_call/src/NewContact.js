@@ -109,7 +109,8 @@ class NewContact extends React.Component {
 										className="form-control"
 										id="phone"
 										format="(###) ###-####"
-										mask=""										
+										mask=""
+										isNumericString="true"										
 										// placeholder="Phone Number Here"
 										onValueChange={this.handleNumberChanged}
 										value={this.state.phone.value}

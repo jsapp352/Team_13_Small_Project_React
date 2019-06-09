@@ -3,6 +3,8 @@ import "./css/styles.css"
 import Button from 'react-bootstrap/Button';
 import Contacts from './Contacts.js'
 import ReactDOM from 'react-dom'
+import NumberFormat from 'react-number-format';
+
 
 class NewContact extends React.Component {
 	constructor(props)
@@ -96,15 +98,15 @@ class NewContact extends React.Component {
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputPhone">Phone Number:</label>
-									// <input type="tel" className="form-control" onChange = {this.handleChange} id="phone" placeholder="Phone Number" />
+									{/* <input type="tel" className="form-control" onChange = {this.handleChange} id="phone" placeholder="8885551234" format="" /> */}
 									<NumberFormat
-									  format="(###) ###-####"
-									  mask=""
-									  name="phoneNumberInput"
-									  id="phone"
-									  placeholder="Phone Number Here"
-									  onValueChange={this.handleChange}
-									  // value={this.state.userInput.value}
+										className="form-control"
+										id="phone"
+										format="(###) ###-####"
+										mask=""										
+										// placeholder="Phone Number Here"
+										onValueChange={this.handleChange}
+										value={this.state.userInput.value}
 									/>
 								</div>
 							</div>

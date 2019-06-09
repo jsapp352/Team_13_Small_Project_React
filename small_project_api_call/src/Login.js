@@ -70,26 +70,20 @@ class Login extends React.Component
 		let hashedPassword;
 		const url = 'https://murmuring-oasis-54026.herokuapp.com/user/username/'+this.state.username;
 		event.preventDefault();
-		const json = {
-	    "password": this.state.password,
-	    "username": this.state.username,
-		}
 		const bcrypt = require('bcryptjs');
 		// const pass = bcrypt.hashSync(this.state.password))
 		
 		const options = {
-			method : 'Get',
-			headers: { 	"Content-Type": "application/json; charset=UTF-8",
-						// "username" : [this.state.username],
-						// "password" : [this.state.password]
-					},
-			// body : JSON.stringify(this.state)
+			method : 'GET',
+			headers: { 	"Content-Type": "application/json; charset=UTF-8" }
 		};
+
 	try{
 		fetch(url, options)
             .then(response => response.json())
 			.then(data => {
 
+	
 				this.state.email = data.email;
 				this.state.userId = data.userId;
 				this.state.firstName = data.firstName;
@@ -105,15 +99,25 @@ class Login extends React.Component
 				localStorage.setItem('user', user);
 
 				bcrypt.compare(this.state.password, data.password).then(function(res) {
-					ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-					ReactDOM.render(<Contacts />, document.getElementById('root'))
-				    // res == true
+					if (res === true) {
+						ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+						ReactDOM.render(<Contacts />, document.getElementById('root'))
+					} else {
+
+						console.log("Incorrect")
+						return(<div>Incorrect UserName/Password</div>)
+					}
 				});
+
+				ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+				ReactDOM.render(<Login />, document.getElementById('root'))
+		
 			})
 		}
 		catch(error)
 		{
-			return(<div>Incorrect UserName/Password</div>)
+			ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+			ReactDOM.render(<Login />, document.getElementById('root'))
 		}
 	}		
 

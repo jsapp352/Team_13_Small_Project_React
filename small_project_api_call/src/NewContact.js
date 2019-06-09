@@ -43,7 +43,8 @@ class NewContact extends React.Component {
 
 		// Check for undefined phone value (should be a number)
 		if (this.state.phone === undefined)
-			return;
+			// Set phone to 0 if it is undefined
+			this.setState({phone: 0});
 
 		const options = {
 	      method : 'POST',

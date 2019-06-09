@@ -102,7 +102,7 @@ class NewContact extends React.Component {
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputPhone">Phone Number:</label>
-									<input type="tel" className="form-control" onChange={this.handleChange} id="phone" placeholder="Phone Number" pattern="[0-9]{10}" />
+									<input type="tel" className="form-control" onChange={this.handleChange} id="phone" placeholder="Phone Number" />
 								</div>
 							</div>
 							<br />

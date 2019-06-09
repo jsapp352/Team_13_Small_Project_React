@@ -91,9 +91,11 @@ class Table extends React.Component {
 		fetch(url, options).then(response=>response.JSON).then(data=>{console.log(data)});
 
 		let x = 0;
+		fetch(url, options)
 
-		ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
-		ReactDOM.render(<Loading />, document.getElementById('root'))
+		this.componentWillMount();
+		ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+		ReactDOM.render(<Loading />, document.getElementById('root'));
 	}
 
 	state = { show: false, item: "" };
@@ -132,7 +134,7 @@ class Table extends React.Component {
 		if (contacts.length <= 0)
 		{
 			contacts.push(
-				<div style={{fontSize : 1.2 + "em", margin : 10}}>You have no contacts :( </div>
+				<div style={{fontSize : 1.2 + "em", margin : 10}}> <br /> </div>
 			)
 		}
 

@@ -102,11 +102,14 @@ class Login extends React.Component
 					if (res === true) {
 						ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 						ReactDOM.render(<Contacts />, document.getElementById('root'))
-					} else {
+	
 
 						console.log("Incorrect")
 						return(<div>Incorrect UserName/Password</div>)
 					}
+						return(<div>Incorrect UserName/Password</div>)
+			
+				    // res == true
 				});
 
 				ReactDOM.unmountComponentAtNode(document.getElementById('root'));

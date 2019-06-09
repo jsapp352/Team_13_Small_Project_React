@@ -105,8 +105,13 @@ class Login extends React.Component
 				localStorage.setItem('user', user);
 
 				bcrypt.compare(this.state.password, data.password).then(function(res) {
-					ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-					ReactDOM.render(<Contacts />, document.getElementById('root'))
+					console.log(res)
+					if (res === true) {
+						ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+						ReactDOM.render(<Contacts />, document.getElementById('root'))
+					} else {
+						return(<div>Incorrect UserName/Password</div>)
+					}
 				    // res == true
 				});
 			})

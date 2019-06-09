@@ -88,7 +88,9 @@ class Table extends React.Component {
 			body : JSON.stringify(id)
 		};
 		
-		fetch(url, options);
+		fetch(url, options).then(response=>response.JSON).then(data=>{console.log(data)});
+
+		let x = 0;
 
 		ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
 		ReactDOM.render(<Loading />, document.getElementById('root'))
@@ -104,47 +106,9 @@ class Table extends React.Component {
     	this.setState({ show: false });
   	};  
 
-	// updateContact()
-	// {
-	// 	localStorage.setItem("contact", JSON.stringify(this.state));
-	// 	ReactDOM.unmountComponentAtNode(document.getElementById('root'));	
-	// 	ReactDOM.render(<UpdateContact show={this.state.show} handleClose={this.hideModal} />, document.getElementById('root'))
-	// }
 
 	updateContact(contact) {
 		const c = JSON.parse(contact);
-
-		// console.log("Contact ID to update = " + c.contactId);
-
-		// const json = {
-		// 	firstName: this.state.firstName,
-		// 	lastName: this.state.lastName,
-		// 	password: this.state.password,
-		// 	securityAnswer: this.state.securityAnswer,
-		// 	securityQuestion: this.state.securityQuestion,
-		// 	userId: this.state.userId,
-		// 	username: this.state.username,
-		// };
-
-		// console.log("First: " + JSON.stringify(json));
-
-  // 		const options = {
-	 //      	method : 'PUT',
-	 //      	headers: { "Content-Type": "application/json; charset=UTF-8"},
-	 //      	body : JSON.stringify(json),
-	 //    };
-
-		// const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/';
-		// console.log(url);
-
-	 //    fetch(url, options)
-	 //        .then(response => response.json())
-	 //      	.then(data => {
-	 //      		this.setState({json: data});
-	 //      		console.log("Second: " + JSON.stringify(json));
-		// 		localStorage.setItem("contact", JSON.stringify(this.state));
-	 //      	})
-
 		
 	}
 
@@ -154,7 +118,7 @@ class Table extends React.Component {
 			contacts.push(
 				<tr key={index}>
 					<td className="contact-name">{item.firstName} {item.lastName}</td>
-					<td className="contact-number">{item.phone}</td>
+					<td className="contact-number">{item.phone === 0 ? null : item.phone}</td>
 					<td className="contact-email d-none d-md-table-cell">{item.email}</td>
 					<td className="table-action">
 						<a href="#"><span onClick={this.showModal.bind(this, JSON.stringify(item))}><FontAwesomeIcon icon={faPen} className="align-middle" /></span></a>

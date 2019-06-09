@@ -10,13 +10,5 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
 document.title="Contact Manager"
-ReactDOM.render(<BrowserRouter>
-				<Switch>
-					<Route path="/" component={App}></Route>
-					<Route path="login" component={Login}></Route>
-					<Route path="user" component={User}></Route>
-					<Route path="contact" component={Contact} />
-				</Switch>
-				</BrowserRouter>, 
-				document.getElementById('root'));
+ReactDOM.render(<Login />,document.getElementById('root'));
 

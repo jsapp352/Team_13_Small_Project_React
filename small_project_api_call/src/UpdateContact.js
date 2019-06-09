@@ -11,14 +11,14 @@ export default class UpdateContact extends React.Component {
 		const user = JSON.parse(localStorage.getItem('contact'));
 		super(props);
 		this.state = {
-			firstName: props.firstName,
-			lastName: props.lastName,
-			userId: props.userId,
-			address: props.address,
-			email:props.email,
-			phone:props.phone,
-			contactId: props.contactId,
-			createDate: props.createDate,
+			firstName: '',
+			lastName: '',
+			userId: '',
+			address: '',
+			email: '',
+			phone: '',
+			contactId: '',
+			createDate: '',
 			displayName: "",
 			tempfirstName: "",
 			templastName: '',
@@ -63,10 +63,14 @@ export default class UpdateContact extends React.Component {
 
 	
 
-	handleSubmit()
+	handleSubmit(temp)
 	{
 
-		if(this.state.contactId == 0)
+
+		console.log(temp);
+
+		console.log(this.state);
+		if(temp === null)
 		{
 			return null;
 		}
@@ -76,6 +80,28 @@ export default class UpdateContact extends React.Component {
 		this.state.email = this.state.tempemail;
 		this.state.address = this.state.tempaddress;
 		this.state.phone = this.state.tempphone;
+			
+
+		if(this.state.firstName === '' || this.state.firstName === null){
+			this.state.firstName = temp.firstName;
+		}
+
+		if(this.state.lastName === '' || this.state.lastName === null){
+			this.state.lastName = temp.lastName;
+		}
+
+		if(this.state.email === '' || this.state.email === null){
+			this.state.email = temp.email;
+		}
+
+		if(this.state.phone === 0 || this.state.phone === null){
+			this.state.phone = temp.phone;
+		}
+
+		if(this.state.address === '' || this.state.address === null){
+			this.state.address = temp.address
+		}
+
 		// console.log("state in: ")
 		console.log('herer' + this.state.contactId)
 		console.log(this.state)
@@ -153,7 +179,7 @@ export default class UpdateContact extends React.Component {
 				
 							<br />
 							<div className="text-right">
-								<button type="submit" onClick={this.handleSubmit} className="btn btn-primary">Submit</button>
+								<button type="submit" onClick={temp => this.handleSubmit(c)} className="btn btn-primary">Submit</button>
 							</div>
 						</form>
 					</div>

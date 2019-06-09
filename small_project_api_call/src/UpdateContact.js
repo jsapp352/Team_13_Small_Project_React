@@ -180,7 +180,7 @@ export default class UpdateContact extends React.Component {
 							<br />
 							<div className="text-right">
 								<button type="submit" onClick={temp => this.handleSubmit(c)} className="btn btn-primary">Submit</button>
-							</div>p
+							</div>
 						</form>
 					</div>
 				</div>

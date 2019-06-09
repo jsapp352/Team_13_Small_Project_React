@@ -105,14 +105,7 @@ export default class PasswordReset extends React.Component
         
               </div>
               <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label>Username</label>
-                  <input type="text" className="form-control" 
-                    id="tempUser"
-                    value={this.state.tempUser}
-                    onChange = {this.handleChange}
-                    placeholder="Username" />
-                </div>
+        
 				<div className="form-group col-md-6">
                   <label>New Password</label>
                   <input type="password" className="form-control" 

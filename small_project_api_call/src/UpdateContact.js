@@ -165,7 +165,7 @@ export default class UpdateContact extends React.Component {
 							<div className="form-row">
 								<div className="form-group col-md-6">
 									<label htmlFor="inputFirstN">First Name</label>
-									<input type="text" className="form-control" onChange ={this.handleChange.bind(this)} id="tempfirstName" value={this.tempfirstName} />
+									<input type="text" className="form-control" onChange ={(event) => this.handleChange(event)} id="tempfirstName" defaultValue={this.tempfirstName} />
 								</div>
 								<div className="form-group col-md-6">
 									<label htmlFor="inputLastN">Last Name</label>

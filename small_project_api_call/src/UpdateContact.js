@@ -11,11 +11,6 @@ export default class UpdateContact extends React.Component {
 		const user = JSON.parse(localStorage.getItem('contact'));
 		super(props);
 
-		var { show, contact, handleClose, handleSubmit } = props;
-		
-		if (contact === undefined)
-			return undefined;
-
 		this.state = {
 			firstName: '',
 			lastName: '',
@@ -38,31 +33,38 @@ export default class UpdateContact extends React.Component {
 			contactData: null,
 		}
 
-		// Parse contact from API call into JSON object
-		this.state.contactData = JSON.parse(contact);
-
-		// Initialize contact info variables and corresponding tempvariables
-		console.log('Initializing tempvariables according to this JSON data:');
-		console.log(this.state.contactData);
-
-		this.state.firstName = this.state.tempfirstName = this.state.contactData.firstName;
-		this.state.lastName = this.state.templastName = this.state.contactData.lastName;
-		this.state.email = this.state.tempemail = this.state.contactData.email;
-		this.state.address = this.state.tempaddress = this.state.contactData.address;
-		this.state.phone = this.state.tempphone = this.state.contactData.phone;
-
-		console.log('New component state after tempvariable initialization:');
-		console.log(this.state);		
-
-		// Set the state variables for userId and contact Id
-		this.state.contactId = this.state.contactData.contactId;
-		this.state.userId = this.state.contactData.userId;
-
-		console.log("Component state after constructor initializations:")
-		console.log(this.state);
-
 		// Set the state variable for the handleSubmit() function reference
 		this.handleSubmit = this.handleSubmit.bind(this);
+
+
+		var { show, contact, handleClose, handleSubmit } = props;
+
+		// Initialize contact data if the contact is given
+		if (contact !== undefined)
+		{			
+			// Parse contact from API call into JSON object
+			this.state.contactData = JSON.parse(contact);
+
+			// Initialize contact info variables and corresponding tempvariables
+			console.log('Initializing tempvariables according to this JSON data:');
+			console.log(this.state.contactData);
+
+			this.state.firstName = this.state.tempfirstName = this.state.contactData.firstName;
+			this.state.lastName = this.state.templastName = this.state.contactData.lastName;
+			this.state.email = this.state.tempemail = this.state.contactData.email;
+			this.state.address = this.state.tempaddress = this.state.contactData.address;
+			this.state.phone = this.state.tempphone = this.state.contactData.phone;
+
+			console.log('New component state after tempvariable initialization:');
+			console.log(this.state);		
+
+			// Set the state variables for userId and contact Id
+			this.state.contactId = this.state.contactData.contactId;
+			this.state.userId = this.state.contactData.userId;
+
+			console.log("Component state after constructor initializations:")
+			console.log(this.state);
+		}
 	}
 
 	exitPage()

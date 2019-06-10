@@ -43,13 +43,12 @@ export default class UpdateContact extends React.Component {
 	    ReactDOM.render(<Contacts />, document.getElementById('root'))
 	}
 	  
-	handleChange(originalValue, event){
-		// Print the contact property's original value to the console
-		console.log(originalValue);
-		
+	handleChange(originalValue, event){				
 		// If a non-null value was entered, set the state's tempvariable to that value
 		if(event.target.value !== null)
 		{
+			console.log('Setting ' + event.target.id + ' to ' + event.target.value);
+
 		    this.setState({
 		    [event.target.id]: event.target.value
 			});
@@ -57,6 +56,8 @@ export default class UpdateContact extends React.Component {
 		// Else set the state's tempvariable to the contact property's original value
 		else
 		{
+			console.log('Setting ' + event.target.id + ' to original value (' + originalValue + ')');
+
 			this.setState({
 			[event.target.id]: originalValue
 			})
@@ -145,13 +146,16 @@ export default class UpdateContact extends React.Component {
 		this.state.userId = c.userId;
 
 		// Set temp variables for contact info based on JSON data
-		 this.state.tempfirstName = c.firstName;
-		 this.state.templastName = c.lastName;
-		 this.state.tempemail = c.email;
-		 this.state.tempaddress = c.address;
-		 this.state.tempphone = c.phone;
+		if (this.state.userId === '')
+		{
+			this.state.tempfirstName = c.firstName;
+			this.state.templastName = c.lastName;
+			this.state.tempemail = c.email;
+			this.state.tempaddress = c.address;
+			this.state.tempphone = c.phone;
+		}
 
-		console.log('Loading update form for contact ' + this.state.contactId)
+		console.log('Rendering update form for contact ' + this.state.contactId)
 		// this.fetchHelper(c);
 
 		// Set the displayName value based on the contact JSON's name values

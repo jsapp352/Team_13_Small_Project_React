@@ -14,7 +14,7 @@ export default class UpdateContact extends React.Component {
 		var { show, contact, handleClose, handleSubmit } = props;
 		
 		if (contact === undefined)
-			return null;
+			return undefined;
 
 		this.state = {
 			firstName: '',

@@ -69,10 +69,10 @@ export default class UpdateContact extends React.Component {
 
 	handleSubmit(temp)
 	{
-
-
+		console.log('Values received as "temp" in handleSubmit():');
 		console.log(temp);
 
+		console.log('Component state at the beginning of handleSubmit()');
 		console.log(this.state);
 		if(temp === null)
 		{
@@ -112,8 +112,8 @@ export default class UpdateContact extends React.Component {
 		// 	this.state.address = temp.address
 		// }
 
-		// console.log("state in: ")
-		console.log('Updating contact ' + this.state.contactId + '. New contact info:')
+		// Form an API request to update contact
+		console.log('Updating contact ' + this.state.contactId + '. Sending PUT request with new component state:')
 		console.log(this.state)
   		const options = {
 	      method : 'PUT',
@@ -121,10 +121,11 @@ export default class UpdateContact extends React.Component {
 	      body : JSON.stringify(this.state),
 	    };
 
+		// Send the API request
 		const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/';
 	    fetch(url, options)
-	            .then(response => response.json())
-	      .then(data => {
+			.then(response => response.json())
+			.then(data => {
 			ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
 	   		ReactDOM.render(<Contacts />, document.getElementById('root'))
 		}) 
@@ -139,17 +140,23 @@ export default class UpdateContact extends React.Component {
 			return null;
 
 		// Parse contact from API call into JSON object
-		const c = JSON.parse(contact);
+		const c = JSON.parse(contact);		
 
-		// Set temp variables for contact info based on JSON data
-		if (this.state.userId === '') {
+		// IF this is first time loading the form initialize tempvariables
+		if (this.state.userId === '') 
+		{
+			console.log('Initializing tempvariables according to this JSON data:');
+			console.log(c);
+
 			this.state.tempfirstName = c.firstName;
 			this.state.templastName = c.lastName;
 			this.state.tempemail = c.email;
 			this.state.tempaddress = c.address;
 			this.state.tempphone = c.phone;
+
+			console.log('New component state after tempvariable initialization:');
 		}
-		
+
 		// Set the state variables for userId and contact Id
 		this.state.contactId = c.contactId;
 		this.state.userId = c.userId;

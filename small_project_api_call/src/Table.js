@@ -78,9 +78,6 @@ class Table extends React.Component {
 
 	deleteContact(id, event)
 	{
-		//const id = this.state.contactId;
-		console.log("CONTACT ID = " + id);
-		
 		const url = 'https://murmuring-oasis-54026.herokuapp.com/contact/' + id + '/';
 		const options = {
 			method : 'DELETE',

@@ -78,54 +78,50 @@ class Login extends React.Component
 			headers: { 	"Content-Type": "application/json; charset=UTF-8" }
 		};
 
-	try{
-		fetch(url, options)
-            .then(response => response.json())
-			.then(data => {
+		const errors = [];
 
-	
-				this.state.email = data.email;
-				this.state.userId = data.userId;
-				this.state.firstName = data.firstName;
-				this.state.lastName = data.lastName;
-				this.state.phone = data.phone;
-				this.state.username = data.username;
-				this.state.securityQuestion = data.securityQuestion;
-				this.state.securityAnswer = data.securityAnswer;
+		try{
+			fetch(url, options)
+	            .then(response => response.json())
+				.then(data => {
+					this.state.email = data.email;
+					this.state.userId = data.userId;
+					this.state.firstName = data.firstName;
+					this.state.lastName = data.lastName;
+					this.state.phone = data.phone;
+					this.state.username = data.username;
+					this.state.securityQuestion = data.securityQuestion;
+					this.state.securityAnswer = data.securityAnswer;
 
 
-				console.log("user : " +data.password )
-				const user = JSON.stringify(this.state);
-				localStorage.setItem('user', user);
+					console.log("user : " + data.password)
+					const user = JSON.stringify(this.state);
+					localStorage.setItem('user', user);
 
-				bcrypt.compare(this.state.password, data.password).then(function(res) {
-					if (res === true) {
-						ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-						ReactDOM.render(<Contacts />, document.getElementById('root'))
-	
+					bcrypt.compare(this.state.password, data.password).then(function(res) {
+						if (res === true) {
+							ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+							ReactDOM.render(<Contacts />, document.getElementById('root'))
+						}
+						else {
+							alert("Incorrect username or password. Please, try again.")
+						}
+					});
 
-						console.log("Incorrect")
-						return(<div>Incorrect UserName/Password</div>)
-					}
-						return(<div>Incorrect UserName/Password</div>)
+					ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+					ReactDOM.render(<Login />, document.getElementById('root'))
 			
-				    // res == true
-				});
-
+				}).catch((error) => {
+	  					ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+						ReactDOM.render(<Login />, document.getElementById('root'))
+					})
+			}
+			catch(error)
+			{
 				ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 				ReactDOM.render(<Login />, document.getElementById('root'))
-		
-			}).catch((error) => {
-  					ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-				ReactDOM.render(<Login />, document.getElementById('root'))
-				})
-		}
-		catch(error)
-		{
-			ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-			ReactDOM.render(<Login />, document.getElementById('root'))
-		}
-	}		
+			}
+		}		
 
 	render() {
 		return (

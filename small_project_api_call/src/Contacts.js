@@ -90,8 +90,9 @@ class Contacts extends React.Component {
 
 	handleChange = event => {
 	    this.setState({
-	    [event.target.id]: event.target.value
+	    	[event.target.id]: event.target.value
 	    });
+
 		console.log(this.state)
 		localStorage.setItem("option", JSON.stringify(this.state));
 	}
@@ -147,16 +148,12 @@ class Contacts extends React.Component {
 					<div className="sidebar-content">
 						<div className="sidebar-user">
 							<img src={avatar} className="img-fluid rounded-circle mb-2" />
-							<div className="font-weight-bold">{this.state.username}</div>
-							<small></small>
+							<div className="font-weight-bold">{this.state.firstName} {this.state.lastName}</div>
+							<small>{this.state.username}</small>
 						</div>
 						<ul className="sidebar-nav">
 							<div className="sidebar-user">
-							<div className="font-weight-bold">{this.state.firstName} {this.state.lastName}</div>
-							<small></small>
-						</div><div className="sidebar-user">
-							<div className="font-weight-bold">You're Looking Great Today</div>
-							<small></small>
+							<div className="font-weight-bold">You're Looking Great Today!</div>
 						</div><br/>
 						</ul>
 					</div>

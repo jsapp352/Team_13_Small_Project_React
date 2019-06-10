@@ -50,7 +50,11 @@ export default class UpdateContact extends React.Component {
 		{
 		    this.setState({
 		    [event.target.id]: event.target.value
-	    	});
+			});
+			
+			c.setState({
+			[event.target.id]: event.target.value
+			});
 		}
 		else
 		{

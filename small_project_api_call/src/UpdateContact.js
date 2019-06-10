@@ -28,7 +28,7 @@ export default class UpdateContact extends React.Component {
 			tempphone: 0,
 			tempcontactId: 0,
 			tempcreateDate: "",
-			tempdisplayName: "",
+			tempdisplayName: "",			
 		}
 
 		// this.state.userId = user.userId;
@@ -50,10 +50,6 @@ export default class UpdateContact extends React.Component {
 		{
 		    this.setState({
 		    [event.target.id]: event.target.value
-			});
-			
-			c.setState({
-			[event.target.id]: event.target.value
 			});
 		}
 		else
@@ -132,11 +128,24 @@ export default class UpdateContact extends React.Component {
 		if (contact == undefined)
 			return null;
 
+		// Parse contact from API call into JSON object
 		const c = JSON.parse(contact);
+
+		// Set the state variables for userId and contact Id
 		this.state.contactId = c.contactId;
 		this.state.userId = c.userId;
+
+		// Set temp variables for contact info based on JSON data
+		 this.state.tempfirstName = c.firstName;
+		 this.state.templastName = c.lastName;
+		 this.state.tempemail = c.email;
+		 this.state.tempaddress = c.address;
+		 this.state.tempphone = c.phone;
+
 		console.log(this.state.contactId)
 		// this.fetchHelper(c);
+
+		// Set the displayName value based on the contact JSON's name values
 		const displayName = c.firstName + " " + c.lastName
 		return (
 			<div className={showHideClassName} style={{zIndex: 1}}>
@@ -152,31 +161,31 @@ export default class UpdateContact extends React.Component {
 							<div className="form-row">
 								<div className="form-group col-md-6">
 									<label htmlFor="inputFirstN">First Name</label>
-									<input type="text" className="form-control" onChange ={(event) => this.handleChange(c.firstName, event)} id="tempfirstName" value={c.firstName} />
+									<input type="text" className="form-control" onChange ={(event) => this.handleChange(c.firstName, event)} id="tempfirstName" value={this.tempfirstName} />
 								</div>
 								<div className="form-group col-md-6">
 									<label htmlFor="inputLastN">Last Name</label>
-									<input type="text" className="form-control" onChange ={(event) => this.handleChange(c.lastName, event)}  id="templastName" value={c.lastName} />
+									<input type="text" className="form-control" onChange ={(event) => this.handleChange(c.lastName, event)}  id="templastName" value={this.templastName} />
 								</div>
 							</div>
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputPhone">Phone Number:</label>
-									<input type="tel" className="form-control" onChange ={(event) => this.handleChange(c.phone, event)}  id="tempphone" value={c.phone} />
+									<input type="tel" className="form-control" onChange ={(event) => this.handleChange(c.phone, event)}  id="tempphone" value={this.tempphone} />
 								</div>
 							</div>
 							<br />
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputEmail">Email:</label>
-									<input type="email" className="form-control" onChange ={(event) => this.handleChange(c.email, event)} id="tempemail" value={c.email} />
+									<input type="email" className="form-control" onChange ={(event) => this.handleChange(c.email, event)} id="tempemail" value={this.tempemail} />
 								</div>
 							</div>
 							<br />
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputAddress">Address:</label>
-									<input type="address" className="form-control" onChange ={(event) => this.handleChange(c.address, event)} id="tempaddress" value={c.address} />
+									<input type="address" className="form-control" onChange ={(event) => this.handleChange(c.address, event)} id="tempaddress" value={this.tempaddress} />
 								</div>
 							</div>
 							<br />

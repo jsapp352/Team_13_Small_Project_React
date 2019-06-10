@@ -165,31 +165,31 @@ export default class UpdateContact extends React.Component {
 							<div className="form-row">
 								<div className="form-group col-md-6">
 									<label htmlFor="inputFirstN">First Name</label>
-									<input type="text" className="form-control" onChange ={(event) => this.handleChange(event)} id="tempfirstName" defaultValue={this.tempfirstName} />
+									<input type="text" className="form-control" onChange ={(event) => this.handleChange(event)} id="tempfirstName" value={this.state.tempfirstName} />
 								</div>
 								<div className="form-group col-md-6">
 									<label htmlFor="inputLastN">Last Name</label>
-									<input type="text" className="form-control" onChange ={(event) => this.handleChange(event)}  id="templastName" value={this.templastName} />
+									<input type="text" className="form-control" onChange ={(event) => this.handleChange(event)}  id="templastName" value={this.state.templastName} />
 								</div>
 							</div>
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputPhone">Phone Number:</label>
-									<input type="tel" className="form-control" onChange ={(event) => this.handleChange(event)}  id="tempphone" value={this.tempphone} />
+									<input type="tel" className="form-control" onChange ={(event) => this.handleChange(event)}  id="tempphone" value={this.state.tempphone} />
 								</div>
 							</div>
 							<br />
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputEmail">Email:</label>
-									<input type="email" className="form-control" onChange ={(event) => this.handleChange(event)} id="tempemail" value={this.tempemail} />
+									<input type="email" className="form-control" onChange ={(event) => this.handleChange(event)} id="tempemail" value={this.state.tempemail} />
 								</div>
 							</div>
 							<br />
 							<div className="form-row">
 								<div className="col-sm-12">
 									<label htmlFor="inputAddress">Address:</label>
-									<input type="address" className="form-control" onChange ={(event) => this.handleChange(event)} id="tempaddress" value={this.tempaddress} />
+									<input type="address" className="form-control" onChange={(event) => this.handleChange(event)} id="tempaddress" value={this.state.tempaddress} />
 								</div>
 							</div>
 							<br />

@@ -75,6 +75,7 @@ export default class UpdateContact extends React.Component {
 			return null;
 		}
 
+		// Set state variables to new values from Update Contact form
 		this.state.firstName = this.state.tempfirstName;
 		this.state.lastName = this.state.templastName;
 		this.state.email = this.state.tempemail;
@@ -82,6 +83,8 @@ export default class UpdateContact extends React.Component {
 		this.state.phone = this.state.tempphone;
 			
 
+		// If any new value is empty or null, set the state variable back
+		// to its previous value.
 		if(this.state.firstName === '' || this.state.firstName === null){
 			this.state.firstName = temp.firstName;
 		}

@@ -140,7 +140,7 @@ class Table extends React.Component {
 
 		return (
 			<div className="row">
-				<UpdateContact show={this.state.show} contact={this.state.contact} handleClose={this.hideModal} handleSubmit={this.updateContact.bind(this, this.state.contact)}/>
+				<UpdateContact key={this.state.contact} show={this.state.show} contact={this.state.contact} handleClose={this.hideModal} handleSubmit={this.updateContact.bind(this, this.state.contact)}/>
 				<div className="col-12 col-xl-12">
 					<div className="card">
 						<div className="card-header">

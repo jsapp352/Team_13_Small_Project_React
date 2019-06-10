@@ -37,7 +37,7 @@ export default class UpdateContact extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 
 
-		var { show, contact, handleClose, handleSubmit } = props;
+		var { key, show, contact, handleClose, handleSubmit } = props;
 
 		// Initialize contact data if the contact is given
 		if (contact !== undefined)
@@ -137,8 +137,12 @@ export default class UpdateContact extends React.Component {
 
 	render() 
 	{
-		var { show, contact, handleClose, handleSubmit } = this.props;
-		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";		
+		var { key, show, contact, handleClose, handleSubmit } = this.props;
+		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
+		
+		// Check for null contact
+		if(contact === undefined)
+			return null;
 
 		console.log('Rendering update form for contact ' + this.state.contactId);
 		

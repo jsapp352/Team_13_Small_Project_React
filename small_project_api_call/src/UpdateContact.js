@@ -141,19 +141,19 @@ export default class UpdateContact extends React.Component {
 		// Parse contact from API call into JSON object
 		const c = JSON.parse(contact);
 
-		// Set the state variables for userId and contact Id
-		this.state.contactId = c.contactId;
-		this.state.userId = c.userId;
-
 		// Set temp variables for contact info based on JSON data
-		if (this.state.userId === '')
-		{
+		if (this.state.userId === '') {
 			this.state.tempfirstName = c.firstName;
 			this.state.templastName = c.lastName;
 			this.state.tempemail = c.email;
 			this.state.tempaddress = c.address;
 			this.state.tempphone = c.phone;
 		}
+		
+		// Set the state variables for userId and contact Id
+		this.state.contactId = c.contactId;
+		this.state.userId = c.userId;
+
 
 		console.log('Rendering update form for contact ' + this.state.contactId)
 		// this.fetchHelper(c);

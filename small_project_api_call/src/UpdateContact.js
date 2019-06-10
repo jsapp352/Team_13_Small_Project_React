@@ -43,19 +43,22 @@ export default class UpdateContact extends React.Component {
 	    ReactDOM.render(<Contacts />, document.getElementById('root'))
 	}
 	  
-	// handleChange = event => {
-	handleChange(c, event){
-			console.log(c);
-		if(event.target.value)
+	handleChange(originalValue, event){
+		// Print the contact property's original value to the console
+		console.log(originalValue);
+		
+		// If a non-null value was entered, set the state's tempvariable to that value
+		if(event.target.value !== null)
 		{
 		    this.setState({
 		    [event.target.id]: event.target.value
 			});
 		}
+		// Else set the state's tempvariable to the contact property's original value
 		else
 		{
 			this.setState({
-			[event.target.id]: c
+			[event.target.id]: originalValue
 			})
 		}
 	}
@@ -83,30 +86,33 @@ export default class UpdateContact extends React.Component {
 		this.state.phone = this.state.tempphone;
 			
 
+		// Commented this section out because null checks already happen in handleChange
+		// And
+
 		// If any new value is empty or null, set the state variable back
 		// to its previous value.
-		if(this.state.firstName === '' || this.state.firstName === null){
-			this.state.firstName = temp.firstName;
-		}
+		// if(this.state.firstName === '' || this.state.firstName === null){
+		// 	this.state.firstName = temp.firstName;
+		// }
 
-		if(this.state.lastName === '' || this.state.lastName === null){
-			this.state.lastName = temp.lastName;
-		}
+		// if(this.state.lastName === '' || this.state.lastName === null){
+		// 	this.state.lastName = temp.lastName;
+		// }
 
-		if(this.state.email === '' || this.state.email === null){
-			this.state.email = temp.email;
-		}
+		// if(this.state.email === '' || this.state.email === null){
+		// 	this.state.email = temp.email;
+		// }
 
-		if(this.state.phone === 0 || this.state.phone === null){
-			this.state.phone = temp.phone;
-		}
+		// if(this.state.phone === 0 || this.state.phone === null){
+		// 	this.state.phone = temp.phone;
+		// }
 
-		if(this.state.address === '' || this.state.address === null){
-			this.state.address = temp.address
-		}
+		// if(this.state.address === '' || this.state.address === null){
+		// 	this.state.address = temp.address
+		// }
 
 		// console.log("state in: ")
-		console.log('herer' + this.state.contactId)
+		console.log('Updating contact ' + this.state.contactId + '. New contact info:')
 		console.log(this.state)
   		const options = {
 	      method : 'PUT',
@@ -145,7 +151,7 @@ export default class UpdateContact extends React.Component {
 		 this.state.tempaddress = c.address;
 		 this.state.tempphone = c.phone;
 
-		console.log(this.state.contactId)
+		console.log('Loading update form for contact ' + this.state.contactId)
 		// this.fetchHelper(c);
 
 		// Set the displayName value based on the contact JSON's name values

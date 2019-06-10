@@ -45,25 +45,24 @@ export default class UpdateContact extends React.Component {
 			// Parse contact from API call into JSON object
 			this.state.contactData = JSON.parse(contact);
 
+			// DEBUG
+			// console.log('Initializing tempvariables according to this JSON data:');
+			// console.log(this.state.contactData);
+			
 			// Initialize contact info variables and corresponding tempvariables
-			console.log('Initializing tempvariables according to this JSON data:');
-			console.log(this.state.contactData);
-
 			this.state.firstName = this.state.tempfirstName = this.state.contactData.firstName;
 			this.state.lastName = this.state.templastName = this.state.contactData.lastName;
 			this.state.email = this.state.tempemail = this.state.contactData.email;
 			this.state.address = this.state.tempaddress = this.state.contactData.address;
 			this.state.phone = this.state.tempphone = this.state.contactData.phone;
 
-			console.log('New component state after tempvariable initialization:');
-			console.log(this.state);		
-
 			// Set the state variables for userId and contact Id
 			this.state.contactId = this.state.contactData.contactId;
 			this.state.userId = this.state.contactData.userId;
 
-			console.log("Component state after constructor initializations:")
-			console.log(this.state);
+			// DEBUG
+			// console.log("Component state after constructor initializations:")
+			// console.log(this.state);
 		}
 	}
 
@@ -78,33 +77,18 @@ export default class UpdateContact extends React.Component {
 		// If a non-null value was entered, set the state's tempvariable to that value
 		if(event.target.value !== null)
 		{
-			console.log('Setting ' + event.target.id + ' to ' + event.target.value);
-
 		    this.setState({
-		    [event.target.id]: event.target.value
+				[event.target.id]: event.target.value
 			});
 		}
-		// Else set the state's tempvariable to the contact property's original value
-		// else
-		// {
-		// 	console.log('Setting ' + event.target.id + ' to original value (' + originalValue + ')');
-
-		// 	this.setState({
-		// 	[event.target.id]: this.state.contactData[event.target.id]
-		// 	});
-		// }
 	}
 
 	handleSubmit(temp)
 	{
-		console.log('Values received as "temp" in handleSubmit():');
-		console.log(temp);
-
-		console.log('Component state at the beginning of handleSubmit()');
-		console.log(this.state);
+		// Check for null temp reference
 		if(temp === null)
 		{
-			return null;
+			this.exitPage();
 		}
 
 		// Set state variables to new values from Update Contact form
@@ -114,9 +98,11 @@ export default class UpdateContact extends React.Component {
 		this.state.address = this.state.tempaddress;
 		this.state.phone = this.state.tempphone;			
 
-		// Form an API request to update contact
+		// DEBUG
 		console.log('Updating contact ' + this.state.contactId + '. Sending PUT request with new component state:')
 		console.log(this.state)
+		
+		// Form an API request to update contact
   		const options = {
 	      method : 'PUT',
 	      headers: { "Content-Type": "application/json; charset=UTF-8"},
@@ -131,22 +117,23 @@ export default class UpdateContact extends React.Component {
 			ReactDOM.unmountComponentAtNode(document.getElementById('root')); 
 	   		ReactDOM.render(<Contacts />, document.getElementById('root'))
 		}) 
+
+		// Exit the page
 		this.exitPage();
 
 	}
 
 	render() 
 	{
+		// Unpack component properties
 		var { key, show, contact, handleClose, handleSubmit } = this.props;
-		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
-		
+
 		// Check for null contact
-		if(contact === undefined)
+		if (contact === undefined)
 			return null;
 
-		console.log('Rendering update form for contact ' + this.state.contactId);
-		
-		
+		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
+				
 		// Set the displayName value based on the contact JSON's name values
 		const c = this.state.contactData;
 		const displayName = c.firstName + " " + c.lastName;
